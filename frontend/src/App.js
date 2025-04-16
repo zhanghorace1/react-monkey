@@ -7,7 +7,7 @@ function App() {
 
   const fetchData = () => {
     setLoading(true);
-    fetch('http://localhost:5000/')
+    fetch(process.env.REACT_APP_API_URL || 'http://localhost:5000/')
       .then(response => response.json())
       .then(data => {
         setData(data);
