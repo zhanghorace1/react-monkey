@@ -34,7 +34,7 @@ function App() {
           <tbody>
             {data.length === 0 ? (
               <tr>
-                <td colSpan="4">No data available</td>
+                <td colSpan="4">No data available, please click "Get data" button</td>
               </tr>
             ) : (
               data.map((item, index) => (
