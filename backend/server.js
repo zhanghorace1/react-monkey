@@ -23,8 +23,7 @@ async function getAllSurveyIds() {
         });
         const data = await response.json();
         let survey_ids = data.data.map(item => Number(item.id));
-        getSurveyDetails(survey_ids);
-        console.log(response)
+        return getSurveyDetails(survey_ids);
     } catch (error) {
         console.error('Error fetching Survey Monkey data:', error);
     }
@@ -37,7 +36,7 @@ async function getSurveyDetails(surveyIds) {
                 "method": "GET",
                 "headers": {
                     "Accept": "application/json",
-                    "Authorization": `Bearer ${apiKey}`
+                    "Authorization": `Bearer ${process.env.SM_ACCESS_TOKEN}`
                 }
             });
 
@@ -64,11 +63,14 @@ async function getSurveyDetails(surveyIds) {
 
     const filteredSurveyDetails = surveyDetails.filter(detail => detail !== null);
     return filteredSurveyDetails;
-
 }
 
 const importantQuestion = "Stay connected with us for a source of inspiration and impact! Check the box below to be added to our newsletter and receive engaging content featuring incredible collaborations between nonprofits, volunteers, and companies. You may unsubscribe at any time.";
 
+function isStringInObject(targetString, obj) {
+  const objectString = JSON.stringify(obj);
+  return objectString.includes(targetString);
+}
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
