@@ -20,7 +20,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <button onClick={fetchData} disabled={loading}>
-          {loading ? 'Loading...' : 'Get data'}
+          {loading ? 'Loading...' : 'Get data 🐵'}
         </button>
         <table>
           <thead>

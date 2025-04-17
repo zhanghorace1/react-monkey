@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-color: #f0f8ff; /* Light blue background for a friendly vibe */
+  color: #333; /* Darker text for better readability */
 }
 
 .App-logo {
@@ -8,16 +10,61 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #faf6c4; /* Soft yellow for a vibrant header */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #333; /* Darker text for contrast */
 }
 
 .App-link {
   color: #61dafb;
+}
+
+button {
+  background-color: #4caf50; /* Bright green for a friendly button */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049; /* Slightly darker green on hover */
+}
+
+button:disabled {
+  background-color: #ccc; /* Gray for disabled state */
+  cursor: not-allowed;
+}
+
+table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  width: 80%;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #f4a261; /* Vibrant orange for table headers */
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9; /* Light gray for alternating rows */
+}
+
+tr:hover {
+  background-color: #f1f1f1; /* Slight highlight on hover */
 }
