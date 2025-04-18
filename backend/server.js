@@ -22,8 +22,13 @@ async function getAllSurveyIds() {
             }
         });
         const data = await response.json();
+        // console.log(data)
         let survey_ids = data.data.map(item => Number(item.id));
-        return getSurveyDetails(survey_ids);
+        console.log(survey_ids);
+        // return getSurveyDetails(survey_ids);
+        let result = getSurveyDetails([417217266])
+        console.log(result)
+        return result;
     } catch (error) {
         console.error('Error fetching Survey Monkey data:', error);
     }
