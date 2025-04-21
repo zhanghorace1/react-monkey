@@ -68,3 +68,7 @@ tr:nth-child(even) {
 tr:hover {
   background-color: #f1f1f1; /* Slight highlight on hover */
 }
+
+.data-table {
+  margin-bottom: 50px;
+}

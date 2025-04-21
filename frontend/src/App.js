@@ -5,15 +5,17 @@ function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchData = () => {
+  const fetchData = async () => {
     setLoading(true);
-    fetch(process.env.REACT_APP_API_URL || 'http://localhost:5000/')
-      .then(response => response.json())
-      .then(data => {
-        setData(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    try {
+      const response = await fetch('http://localhost:5000/');
+      const data = await response.json();
+      setData(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -22,7 +24,7 @@ function App() {
         <button onClick={fetchData} disabled={loading}>
           {loading ? 'Loading...' : 'Get data 🐵'}
         </button>
-        <table>
+        <table className="data-table">
           <thead>
             <tr>
               <th>Title</th>
