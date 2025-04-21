@@ -72,3 +72,35 @@ tr:hover {
 .data-table {
   margin-bottom: 50px;
 }
+
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sort-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.sort-buttons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 26px; /* Increased font size for larger arrows */
+  color: #4caf50; /* Green color for the arrows */
+}
+
+.sort-buttons button:hover {
+  color: #153f17; /* Slightly darker green on hover */
+}
+
+h1 {
+  font-family: 'American Typewriter', serif; /* Updated to American Typewriter */
+  font-size: 3rem; /* Larger font size */
+  color: #ff69b4; /* Bright pink color */
+  text-shadow: 1px 1px #ffa07a; /* Cute shadow effect */
+  margin-bottom: 20px;
+}

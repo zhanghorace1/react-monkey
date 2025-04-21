@@ -4,12 +4,13 @@ const cors = require('cors');
 const fs = require('fs');
 const app = express();
 const port = process.env.PORT || 5000;
+const { surveyDetailsExample } = require('../secrets.js'); // Import surveyDetailsExample
 
 app.use(cors());
 app.use(express.json());
 
 // app.get('/', (req, res) => {
-//   res.send(getAllSurveyIds());
+//   res.send(surveyDetailsExample);; // Use fallback data
 // });
 
 app.get('/', async (req, res) => {
@@ -33,7 +34,6 @@ async function getAllSurveyIds() {
         });
         const data = await response.json();
         let survey_ids = data.data.map(item => Number(item.id));
-        console.log(survey_ids);
         return getSurveyDetails(survey_ids);
     } catch (error) {
         console.error('Error fetching Survey Monkey data:', error);
