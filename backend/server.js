@@ -73,7 +73,6 @@ async function getSurveyDetails(surveyIds) {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
                 return {
                     title: data.title,
                     date_created: data.date_created,
