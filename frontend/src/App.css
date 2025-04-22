@@ -33,6 +33,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin: 5px; /* Add margin for spacing between buttons */
 }
 
 button:hover {
@@ -42,6 +43,14 @@ button:hover {
 button:disabled {
   background-color: #ccc; /* Gray for disabled state */
   cursor: not-allowed;
+}
+
+.button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between buttons */
+  margin-top: 20px; /* Add spacing above the button group */
 }
 
 table {

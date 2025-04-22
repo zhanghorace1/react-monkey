@@ -10,14 +10,16 @@ function App() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await fetch(process.env.REACT_APP_API_URL || 'http://localhost:5000/');
-      // const response = await fetch('http://localhost:5000/');
-      console.log(response)
+      const response = await fetch(
+        process.env.NODE_ENV === 'development'
+          ? 'http://localhost:5000/'
+          : process.env.REACT_APP_API_URL || 'http://localhost:5000/'
+      );
       const data = await response.json();
       setData(data);
 
       // Play sound effect when data loads
-      const audio = new Audio(require('./Batman_Transition_Sound_Effect.mp3'));
+      const audio = new Audio(require('./sound/Batman_Transition_Sound_Effect.mp3'));
       audio.play();
 
       // Disable button after successful fetch
@@ -47,35 +49,49 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Common Impact Surveys</h1>
-        <button onClick={fetchData} disabled={loading || dataFetched}>
-          {loading ? 'Loading...' : 'Get data 🐵'}
-        </button>
-        <table className="data-table">
+        <h1 id="header-title">Common Impact Surveys</h1>
+        <div className="button-group">
+          <button id="play-air-horn-button" onClick={() => {
+            const audio = new Audio(require('./sound/Air_Horn_Sound.mp3'));
+            audio.play();
+          }}>
+            🎺
+          </button>
+          <button id="fetch-data-button" onClick={fetchData} disabled={loading || dataFetched}>
+            {loading ? 'Loading...' : 'Get data 🐵'}
+          </button>
+          <button id="play-batman-button" onClick={() => {
+            const audio = new Audio(require('./sound/Batman_Transition_Sound_Effect.mp3'));
+            audio.play();
+          }}>
+            🦇
+          </button>
+        </div>
+        <table id="data-table" className="data-table">
           <thead>
             <tr>
-              <th>
+              <th id="title-column">
                 <div className="table-header">
                   <span>Title</span>
                   <div className="sort-buttons">
-                    <button onClick={() => sortData('title')}>⬆⬇</button>
+                    <button id="sort-title-button" onClick={() => sortData('title')}>⬆⬇</button>
                   </div>
                 </div>
               </th>
-              <th>
+              <th id="date-created-column">
                 <div className="table-header">
                   <span>Date Created</span>
                   <div className="sort-buttons">
-                    <button onClick={() => sortData('date_created')}>⬆⬇</button>
+                    <button id="sort-date-created-button" onClick={() => sortData('date_created')}>⬆⬇</button>
                   </div>
                 </div>
               </th>
-              <th>Analyze</th>
-              <th>
+              <th id="analyze-column">Analyze</th>
+              <th id="important-question-column">
                 <div className="table-header">
                   <span>Important Question</span>
                   <div className="sort-buttons">
-                    <button onClick={() => sortData('has_important_question')}>⬆⬇</button>
+                    <button id="sort-important-question-button" onClick={() => sortData('has_important_question')}>⬆⬇</button>
                   </div>
                 </div>
               </th>
@@ -83,16 +99,18 @@ function App() {
           </thead>
           <tbody>
             {data.length === 0 ? (
-              <tr>
+              <tr id="no-data-row">
                 <td colSpan="4">No data available, please click "Get data" button</td>
               </tr>
             ) : (
               data.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.title}</td>
-                  <td>{new Date(item.date_created).toLocaleDateString()}</td>
-                  <td><a href={item.analyze_url} target="_blank" rel="noopener noreferrer">View</a></td>
-                  <td>{item.has_important_question ? "Yes" : "No"}</td>
+                <tr key={index} id={`data-row-${index}`}>
+                  <td id={`data-title-${index}`}>{item.title}</td>
+                  <td id={`data-date-created-${index}`}>{new Date(item.date_created).toLocaleDateString()}</td>
+                  <td id={`data-analyze-${index}`}>
+                    <a href={item.analyze_url} target="_blank" rel="noopener noreferrer">View</a>
+                  </td>
+                  <td id={`data-important-question-${index}`}>{item.has_important_question ? "Yes" : "No"}</td>
                 </tr>
               ))
             )}

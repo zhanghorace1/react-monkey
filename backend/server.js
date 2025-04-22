@@ -9,17 +9,17 @@ const { surveyDetailsExample } = require('../secrets.js'); // Import surveyDetai
 app.use(cors());
 app.use(express.json());
 
-// app.get('/', (req, res) => {
-//   res.send(surveyDetailsExample);; // Use fallback data
-// });
-
 app.get('/', async (req, res) => {
-  try {
-    const result = await getAllSurveyIds();
-    res.json(result);
-  } catch (error) {
-    console.error('Error in / route:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+  if (process.env.NODE_ENV === 'development') {
+    res.json(surveyDetailsExample); // Return fallback data in development
+  } else {
+    try {
+      const result = await getAllSurveyIds();
+      res.json(result);
+    } catch (error) {
+      console.error('Error in / route:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
   }
 });
 
