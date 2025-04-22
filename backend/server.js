@@ -4,7 +4,6 @@ const cors = require('cors');
 const fs = require('fs');
 const app = express();
 const port = process.env.PORT || 5000;
-const { surveyDetailsExample } = require('../secrets.js'); // Import surveyDetailsExample
 
 app.use(cors());
 app.use(express.json());
@@ -22,6 +21,27 @@ app.get('/', async (req, res) => {
     }
   }
 });
+
+surveyDetailsExample = [
+  {
+    title: 'This is dummy data for React Monkey Testing',
+    date_created: '2025-04-21T18:24:00',
+    analyze_url: 'https://zhanghorace1.github.io/',
+    has_important_question: false
+  },
+  {
+    title: 'My Title 1',
+    date_created: '2025-02-13T18:24:00',
+    analyze_url: 'vercel.com',
+    has_important_question: false
+  },
+  {
+    title: 'My Title 2',
+    date_created: '2025-03-12T14:50:00',
+    analyze_url: 'render.com',
+    has_important_question: false
+  }
+]
 
 async function getAllSurveyIds() {
     try {
