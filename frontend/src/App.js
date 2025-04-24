@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import PasswordGate from './PasswordGate';
 
 function App() {
   const [data, setData] = useState([]);
@@ -47,77 +48,79 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1 id="header-title">Common Impact Surveys</h1>
-        <div className="button-group">
-          <button id="play-air-horn-button" onClick={() => {
-            const audio = new Audio(require('./sound/Air_Horn_Sound.mp3'));
-            audio.play();
-          }}>
-            🎺
-          </button>
-          <button id="fetch-data-button" onClick={fetchData} disabled={loading || dataFetched}>
-            {loading ? 'Loading...' : 'Get data 🐵'}
-          </button>
-          <button id="play-batman-button" onClick={() => {
-            const audio = new Audio(require('./sound/Batman_Transition_Sound_Effect.mp3'));
-            audio.play();
-          }}>
-            🦇
-          </button>
-        </div>
-        <table id="data-table" className="data-table">
-          <thead>
-            <tr>
-              <th id="title-column">
-                <div className="table-header">
-                  <span>Title</span>
-                  <div className="sort-buttons">
-                    <button id="sort-title-button" onClick={() => sortData('title')}>⬆⬇</button>
+    <PasswordGate correctPassword={process.env.REACT_APP_PASSWORD_GATE}>
+      <div className="App">
+        <header className="App-header">
+          <h1 id="header-title">Common Impact Surveys</h1>
+          <div className="button-group">
+            <button id="play-air-horn-button" onClick={() => {
+              const audio = new Audio(require('./sound/Air_Horn_Sound.mp3'));
+              audio.play();
+            }}>
+              🎺
+            </button>
+            <button id="fetch-data-button" onClick={fetchData} disabled={loading || dataFetched}>
+              {loading ? 'Loading...' : 'Get data 🐵'}
+            </button>
+            <button id="play-batman-button" onClick={() => {
+              const audio = new Audio(require('./sound/Batman_Transition_Sound_Effect.mp3'));
+              audio.play();
+            }}>
+              🦇
+            </button>
+          </div>
+          <table id="data-table" className="data-table">
+            <thead>
+              <tr>
+                <th id="title-column">
+                  <div className="table-header">
+                    <span>Title</span>
+                    <div className="sort-buttons">
+                      <button id="sort-title-button" onClick={() => sortData('title')}>⬆⬇</button>
+                    </div>
                   </div>
-                </div>
-              </th>
-              <th id="date-created-column">
-                <div className="table-header">
-                  <span>Date Created</span>
-                  <div className="sort-buttons">
-                    <button id="sort-date-created-button" onClick={() => sortData('date_created')}>⬆⬇</button>
+                </th>
+                <th id="date-created-column">
+                  <div className="table-header">
+                    <span>Date Created</span>
+                    <div className="sort-buttons">
+                      <button id="sort-date-created-button" onClick={() => sortData('date_created')}>⬆⬇</button>
+                    </div>
                   </div>
-                </div>
-              </th>
-              <th id="analyze-column">Analyze</th>
-              <th id="important-question-column">
-                <div className="table-header">
-                  <span>Important Question</span>
-                  <div className="sort-buttons">
-                    <button id="sort-important-question-button" onClick={() => sortData('has_important_question')}>⬆⬇</button>
+                </th>
+                <th id="analyze-column">Analyze</th>
+                <th id="important-question-column">
+                  <div className="table-header">
+                    <span>Important Question</span>
+                    <div className="sort-buttons">
+                      <button id="sort-important-question-button" onClick={() => sortData('has_important_question')}>⬆⬇</button>
+                    </div>
                   </div>
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.length === 0 ? (
-              <tr id="no-data-row">
-                <td colSpan="4">No data available, please click "Get data" button</td>
+                </th>
               </tr>
-            ) : (
-              data.map((item, index) => (
-                <tr key={index} id={`data-row-${index}`}>
-                  <td id={`data-title-${index}`}>{item.title}</td>
-                  <td id={`data-date-created-${index}`}>{new Date(item.date_created).toLocaleDateString()}</td>
-                  <td id={`data-analyze-${index}`}>
-                    <a href={item.analyze_url} target="_blank" rel="noopener noreferrer">View</a>
-                  </td>
-                  <td id={`data-important-question-${index}`}>{item.has_important_question ? "Yes" : "No"}</td>
+            </thead>
+            <tbody>
+              {data.length === 0 ? (
+                <tr id="no-data-row">
+                  <td colSpan="4">No data available, please click "Get data" button</td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </header>
-    </div>
+              ) : (
+                data.map((item, index) => (
+                  <tr key={index} id={`data-row-${index}`}>
+                    <td id={`data-title-${index}`}>{item.title}</td>
+                    <td id={`data-date-created-${index}`}>{new Date(item.date_created).toLocaleDateString()}</td>
+                    <td id={`data-analyze-${index}`}>
+                      <a href={item.analyze_url} target="_blank" rel="noopener noreferrer">View</a>
+                    </td>
+                    <td id={`data-important-question-${index}`}>{item.has_important_question ? "Yes" : "No"}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </header>
+      </div>
+    </PasswordGate>
   );
 }
 
