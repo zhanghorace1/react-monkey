@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './App.css';
 import PasswordGate from './PasswordGate';
+import DataTableModal from './components/DataTableModal';
 
 function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [dataFetched, setDataFetched] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalData, setModalData] = useState([]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -72,6 +75,14 @@ function App() {
           <table id="data-table" className="data-table">
             <thead>
               <tr>
+              <th id="id-column">
+                  <div className="table-header">
+                    <span>Survey ID</span>
+                    <div className="sort-buttons">
+                      <button id="sort-title-button" onClick={() => sortData('id')}>⬆⬇</button>
+                    </div>
+                  </div>
+                </th>
                 <th id="title-column">
                   <div className="table-header">
                     <span>Title</span>
@@ -97,6 +108,7 @@ function App() {
                     </div>
                   </div>
                 </th>
+                <th id="view-contacts-column">View Contacts</th>
               </tr>
             </thead>
             <tbody>
@@ -107,18 +119,44 @@ function App() {
               ) : (
                 data.map((item, index) => (
                   <tr key={index} id={`data-row-${index}`}>
+                    <td id={`data-id-${index}`}>{item.id}</td>
                     <td id={`data-title-${index}`}>{item.title}</td>
                     <td id={`data-date-created-${index}`}>{new Date(item.date_created).toLocaleDateString()}</td>
                     <td id={`data-analyze-${index}`}>
                       <a href={item.analyze_url} target="_blank" rel="noopener noreferrer">View</a>
                     </td>
                     <td id={`data-important-question-${index}`}>{item.has_important_question ? "Yes" : "No"}</td>
+                    <td id={`data-view-contacts-${index}`}>
+                      <button
+                        onClick={async () => {
+                          try {
+                            const response = await fetch(
+                              process.env.NODE_ENV === 'development'
+                              ? `http://localhost:5000/survey-results/${item.id}`
+                              : `${process.env.REACT_APP_API_URL}/survey-results/${item.id}` || `http://localhost:5000/survey-results/${item.id}`
+                            );
+                            const results = await response.json();
+                            setModalData(results);
+                            setIsModalOpen(true);
+                          } catch (error) {
+                            console.error('Error fetching survey results:', error);
+                          }
+                        }}
+                      >
+                        View
+                      </button>
+                    </td>
                   </tr>
                 ))
               )}
             </tbody>
           </table>
         </header>
+        <DataTableModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          data={modalData}
+        />
       </div>
     </PasswordGate>
   );
