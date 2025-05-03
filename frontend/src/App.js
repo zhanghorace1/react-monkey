@@ -138,6 +138,9 @@ function App() {
                             const results = await response.json();
                             setModalData(results);
                             setIsModalOpen(true);
+                            // Play sound effect when data loads
+                            const audio = new Audio(require('./sound/Wow_Sound_Effect.mp3'));
+                            audio.play();
                           } catch (error) {
                             console.error('Error fetching survey results:', error);
                           }
