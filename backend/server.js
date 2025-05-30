@@ -24,14 +24,32 @@ app.get('/', async (req, res) => {
 
 app.get('/survey-results/:id', async (req, res) => {
   const surveyId = req.params.id;
-  try {
-    const results = await getSurveyResponseIds(surveyId);
-    res.json(results);
-  } catch (error) {
-    console.error(`Error fetching results for survey ID ${surveyId}:`, error);
-    res.status(500).json({ error: 'Internal Server Error' });
+  if (process.env.NODE_ENV === 'development') {
+    res.json(contactDetailsExample); // Return fallback data in development
+  } else {
+    try {
+      const results = await getSurveyResponseIds(surveyId);
+      res.json(results);
+    } catch (error) {
+      console.error(`Error fetching results for survey ID ${surveyId}:`, error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
   }
 });
+
+contactDetailsExample = [
+  {
+    firstName: 'Joe',
+    lastName: 'Schmoe',
+    email: 'jschmoe@email.com'
+  },
+  {
+    firstName: 'Jane',
+    lastName: 'Schmane',
+    email: 'jschmane@email.com'
+  },
+
+]
 
 surveyDetailsExample = [
   {
