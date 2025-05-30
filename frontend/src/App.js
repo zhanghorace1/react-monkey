@@ -16,8 +16,8 @@ function App() {
     try {
       const response = await fetch(
         process.env.NODE_ENV === 'development'
-          ? 'http://localhost:5000/'
-          : process.env.REACT_APP_API_URL || 'http://localhost:5000/'
+          ? 'http://localhost:5000/api/surveys'
+          : `${process.env.REACT_APP_API_URL}/api/surveys`
       );
       const data = await response.json();
       setData(data);
