@@ -54,7 +54,7 @@ function App() {
     <PasswordGate correctPassword={process.env.REACT_APP_PASSWORD_GATE}>
       <div className="App">
         <header className="App-header">
-          <h1 id="header-title">Common Impact Surveys</h1>
+          <h1 id="header-title">Common Conctact Connect</h1>
           <div className="button-group">
             <button id="play-air-horn-button" onClick={() => {
               const audio = new Audio(require('./sound/Air_Horn_Sound.mp3'));
