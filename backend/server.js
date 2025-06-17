@@ -53,21 +53,33 @@ contactDetailsExample = [
 
 surveyDetailsExample = [
   {
-    title: 'This is dummy data for React Monkey Testing',
+    title: 'Open Sea Fishing Experiences',
     date_created: '2025-04-21T18:24:00',
     analyze_url: 'https://zhanghorace1.github.io/',
     has_important_question: false
   },
   {
-    title: 'My Title 1',
+    title: 'Blue Ribbon Apple Pie Recipes',
     date_created: '2025-02-13T18:24:00',
     analyze_url: 'vercel.com',
     has_important_question: false
   },
   {
-    title: 'My Title 2',
-    date_created: '2025-03-12T14:50:00',
+    title: 'Couch Potato Fitness Plans',
+    date_created: '2025-02-12T14:50:00',
     analyze_url: 'render.com',
+    has_important_question: false
+  },
+  {
+    title: 'Rodent Rescue and Rehabilitation',
+    date_created: '2024-01-17T18:24:00',
+    analyze_url: 'vercel.com',
+    has_important_question: false
+  },
+  {
+    title: 'Historical Reenactment Society',
+    date_created: '2024-06-03T18:24:00',
+    analyze_url: 'vercel.com',
     has_important_question: false
   }
 ]
