@@ -6,7 +6,7 @@ const DataTableModal = ({ isOpen, onClose, data }) => {
 
   const copyToClipboard = () => {
     const tableData = data.map(item => `${item.firstName}\t${item.lastName}\t${item.email}`).join('\n');
-    const audio = new Audio(require('../sound/Oh_my_god_Wow.mp3'));
+    const audio = new Audio(require('../sound/happy_happy_happy.mp3'));
     audio.play();
     // navigator.clipboard.writeText(tableData).then(() => {
     //   alert('Table data copied to clipboard!');
